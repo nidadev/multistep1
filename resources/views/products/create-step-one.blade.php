@@ -19,20 +19,41 @@
                         @endif
 
                         <div class="form-group">
-                            <label for="title">Product Name:</label>
+                            <label for="title">Name:</label>
                             <input type="text" class="form-control" name="name" id="name">
                             <span class="error name_err"></span>
 
                         </div>
+
                         <div class="form-group">
-                            <label for="description">Product Amount:</label>
+                            <label for="title">Email:</label>
+                            <input type="text" class="form-control" name="email" id="email">
+                            <span class="error email_err"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Phone:</label>
+                            <input type="text" class="form-control" name="phone" id="phone">
+                            <span class="error phone_err"></span>
+
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="title">Guardian:</label>
+                            <input type="text" class="form-control" name="guardian" id="guardian">
+                            <span class="error guardian_err"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Amount:</label>
                             <input type="text" class="form-control" id="amount" name="amount" />
                             <span class="error amount_err"></span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Product Description:</label>
+                            <label for="description"> Address:</label>
                             <textarea type="text" class="form-control" id="desc" name="desc"></textarea>
 
                         </div>
@@ -63,6 +84,9 @@
             event.preventDefault();
             var _token = $("input[name=_token]").val();
             var name = $('#name').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var guardian = $('#guardian').val();
             var amount = $('#amount').val();
             var desc = $('#desc').val();
 
@@ -74,6 +98,9 @@
                 data: {
                     _token: _token,
                     name: name,
+                    email: email,
+                    phone: phone,
+                    guardian: guardian,
                     amount: amount,
                     desc: desc,
 
