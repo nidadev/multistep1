@@ -164,4 +164,75 @@ class ProductController extends Controller
 
         return view('products.create-step-four');
     }
+
+    public function formStep()
+    {
+        return view('products.form');
+ 
+    }
+
+
+    
+    public function postformStep(Request $request)
+    {
+
+        $validatedData = Validator::make($request->all(), [
+            /*'name' => 'required|min:4|max:10|unique:products',
+            'email' => 'required|email|unique:products',
+            'phone' => 'required|digits:10',
+            'guardian' => 'required|min:4|max:10',
+            'amount' => 'required|numeric',*/
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'guardian' => 'required',
+            'amount' => 'required',
+            'name' => 'required',
+            'degree' => 'required',
+            'year' => 'required',
+            'password' => 'required',
+
+        ]);
+        if ($validatedData->passes()) {
+            DB::table('products')->insert([
+                "name" => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'guardian' => $request->guardian,
+                "description" => $request->desc,
+                "amount" => $request->amount,
+            ]);
+
+            DB::table('educates')->insert(
+                [
+                    "name" => $request->name,
+                ]
+            );
+            DB::table('users')->where('id', auth()->user()->id)->update(
+                [
+                    "password" => Hash::make($request->password),
+                ]
+            );
+
+            /*Product::create([
+                "name" => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'guardian' => $request->guardian,
+                "description" => $request->desc,
+                "amount" => $request->amount,
+
+            ]);*/
+
+            return response()->json([
+                'success' => 'added',
+                //'redirect_url' => route('products.step-two'),
+
+            ], 200);
+        }
+
+        return response()->json([
+            'error' => $validatedData->errors()
+        ]);
+    }
 }
